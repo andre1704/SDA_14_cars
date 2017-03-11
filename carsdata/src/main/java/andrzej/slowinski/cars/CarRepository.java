@@ -11,12 +11,12 @@ public class CarRepository {
 
     CarRepository() {
         list = new ArrayList<Car>();
-        list.add(new Car("Ford", "fiesta", 120, 2070));
-        list.add(new Car("Audi", "4", 220, 2090));
+        list.add(new Car("Ford", "fiesta", 120, 2007));
+        list.add(new Car("Audi", "4", 220, 2009));
 
     }
 
-    public List<Car> getList() {
+    public List<Car> getCarList() {
         return list;
     }
 
