@@ -13,6 +13,10 @@ public class CarsManageGui extends JFrame {
     private CarRepository carRepository;
     private JList<Car> carJList;
     private JButton editButton;
+    private JLabel jLabelBrand;
+    private JLabel jLabelModel;
+    private JLabel jLabelYear;
+    private JLabel jLabelPower;
     public CarsManageGui() {
         setTitle("cars manager");
         setVisible(true);
@@ -34,6 +38,11 @@ public class CarsManageGui extends JFrame {
         editButton.setLocation(360,20);
         editButton.setSize(120,20);
         add(editButton);
+        jLabelBrand=new JLabel("Brand");
+
+
+
+
 
 
 
