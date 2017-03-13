@@ -1,5 +1,7 @@
 package andrzej.slowinski.cars;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,5 +29,14 @@ public class CarRepository {
     public void addCar(Car car) {
 
         list.add(car);
+    }
+    public void saveToFIle() throws IOException {
+        FileWriter fileWriter=new FileWriter("car.txt",false);
+        for(Car el:list){
+            fileWriter.write("brand "+el.getBrand()+" model "+el.model+" year "+el.year+" power "+el.power+System.lineSeparator());
+            fileWriter.flush();
+        }
+        fileWriter.close();
+
     }
 }

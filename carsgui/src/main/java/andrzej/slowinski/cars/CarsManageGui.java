@@ -5,6 +5,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public class CarsManageGui extends JFrame {
 
     private CarRepository carRepository;
     private JList<Car> carJList;
-
+    private JButton saveToFile;
 
     public CarsManageGui() {
         setTitle("cars manager");
@@ -27,7 +28,7 @@ public class CarsManageGui extends JFrame {
         carJList.setSize(200, 200);
         carJList.setLocation(20, 20);
         add(carJList);
-        JButton jButton = new JButton("wczytaj");
+        JButton jButton = new JButton("Load");
         jButton.setLocation(222, 20);
         jButton.setSize(120, 20);
         add(jButton);
@@ -36,8 +37,22 @@ public class CarsManageGui extends JFrame {
         carGuiPanel.setLocation(250, 120);
         carGuiPanel.setSize(300, 300);
         add(carGuiPanel);
+        saveToFile=new JButton("Save to file");
+        saveToFile.setLocation(300,500);
+        saveToFile.setSize(200,20);
+        add(saveToFile);
 
-;
+        saveToFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    carRepository.saveToFIle();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+
 
         carJList.addListSelectionListener(new ListSelectionListener() {
             @Override
