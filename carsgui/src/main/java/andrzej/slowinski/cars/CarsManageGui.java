@@ -17,6 +17,7 @@ public class CarsManageGui extends JFrame {
     private CarRepository carRepository;
     private JList<Car> carJList;
     private JButton saveToFile;
+    private JButton jButtonLoadFromFile;
 
     public CarsManageGui() {
         setTitle("cars manager");
@@ -41,7 +42,24 @@ public class CarsManageGui extends JFrame {
         saveToFile.setLocation(300,500);
         saveToFile.setSize(200,20);
         add(saveToFile);
+        jButtonLoadFromFile = new JButton("load from file");
+        jButtonLoadFromFile.setSize(120, 20);
+        jButtonLoadFromFile.setLocation(20, 280);
+        add(jButtonLoadFromFile);
+        jButtonLoadFromFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    carRepository.setListFromFile("car.txt");
 
+
+                    showInFrame();
+
+                } catch (IOException e1) {
+                    System.out.println("a");
+                }
+            }
+        });
         saveToFile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -66,15 +84,18 @@ public class CarsManageGui extends JFrame {
         jButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                List<Car> carList = carRepository.getCarList();
-                // ZAMIANA LISTY NA TABLICĘ
-                Car[] cars = new Car[carList.size()];
-                for (int i = 0; i < carList.size(); i++) {
-                    cars[i] = carList.get(i);
-                }
-                carJList.setListData(cars);
+                showInFrame();
             }
         });
+    }
+
+    private void showInFrame() {
+        List<Car> carList = carRepository.getCarList();
+        Car[] cars = new Car[carList.size()];
+        for (int i = 0; i < carList.size(); i++) {
+            cars[i] = carList.get(i);
+        }
+        carJList.setListData(cars);
     }
 
     public static void main(String[] args) {
