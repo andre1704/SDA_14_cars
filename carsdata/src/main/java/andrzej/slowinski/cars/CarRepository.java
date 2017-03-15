@@ -1,7 +1,6 @@
 package andrzej.slowinski.cars;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +12,8 @@ public class CarRepository {
 
     CarRepository() {
         list = new ArrayList<Car>();
-        list.add(new Car("Ford", "fiesta", 120, 2007));
-        list.add(new Car("Audi", "4", 220, 2009));
+//        list.add(new Car("Ford", "fiesta", 120, 2007));
+//        list.add(new Car("Audi", "4", 220, 2009));
 
     }
 
@@ -30,6 +29,24 @@ public class CarRepository {
 
         list.add(car);
     }
+    public void setListFromFile(String file) throws IOException {
+        list.clear();
+        FileReader fileReader=new FileReader(file);
+        BufferedReader bufferedReader=new BufferedReader(fileReader);
+        String line;
+        while((line=bufferedReader.readLine())!=null){
+            Car car=new Car(line);
+            addCar(car);
+        }
+        bufferedReader.close();
+        fileReader.close();
+        for(Car el:list){
+            System.out.println(el.toString());
+        }
+    }
+    public void deleteFromList(Car car){
+        list.remove(car);
+    }
     public void saveToFIle() throws IOException {
         FileWriter fileWriter=new FileWriter("car.txt",false);
         for(Car el:list){
@@ -37,6 +54,5 @@ public class CarRepository {
             fileWriter.flush();
         }
         fileWriter.close();
-
     }
 }

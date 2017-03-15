@@ -36,7 +36,7 @@ public class Car {
 
     @Override
     public String toString() {
-        String out = brand + "," + model + "," + power + "," + "," + year;
+        String out = brand + "," + model + "," + power + "," + year;
         return out;
     }
 

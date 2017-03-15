@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.*;
 
 /**
  * Created by RENT on 2017-03-13.
@@ -21,9 +22,10 @@ public class CarGuiPanel extends JPanel {
     private JTextField jTextFieldYear;
     private JTextField jTextFieldPower;
 
+    private JButton jButtonCreateCar;
     private JButton jButtonSave;
 
-    CarGuiPanel(CarsManageGui window) {
+    CarGuiPanel(CarsManageGui window,CarRepository carRepository) {
         this.managerWindow=window;
         setVisible(true);
         setLayout(null);
@@ -64,9 +66,28 @@ public class CarGuiPanel extends JPanel {
         jButtonSave.setSize(120, 20);
         jButtonSave.setLocation(150, 280);
         add(jButtonSave);
+        jButtonCreateCar = new JButton("add car");
+        jButtonCreateCar.setSize(120, 20);
+        jButtonCreateCar.setLocation(20,280);
+        add(jButtonCreateCar);
 
 
 
+        jButtonCreateCar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String brand=jTextFieldBrand.getText();
+                String model=jTextFieldModel.getText();
+                int year= Integer.parseInt(jTextFieldYear.getText());
+                double power= Double.parseDouble(jTextFieldPower.getText());
+                carRepository.addCar(new Car(brand,model,power,year));
+                java.util.List<Car> carList = carRepository.getCarList();
+                Car[] cars = managerWindow.getCars();
+                JList<Car> list= managerWindow.getCarJList();
+                list.setListData(cars);
+                window.repaint();
+            }
+        });
         jButtonSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -76,8 +97,9 @@ public class CarGuiPanel extends JPanel {
                     editedCar.setPower(Double.parseDouble(jTextFieldPower.getText()));
                     editedCar.setModel(jTextFieldModel.getText());
                     editedCar.setBrand(jTextFieldBrand.getText());
+                    window.repaint();
                 }
-                window.repaint();
+
             }
         });
 
